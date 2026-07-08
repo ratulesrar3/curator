@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Long-form DJ sets sequenced from song feature analytics — energy arcs, harmonic mixing, genre bridges.">
+<title>curator · set gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing:border-box; margin:0; }
+  body { background:#0a0a0a; color:#f0ede8; font-family:Archivo,system-ui,sans-serif;
+         padding:40px 24px 64px; max-width:1100px; margin:0 auto; }
+  .eyebrow { font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.08em;
+              color:#9f8fff; text-transform:uppercase; }
+  h1 { font-size:30px; font-weight:700; margin:6px 0 8px; }
+  .sub { color:#888888; font-size:14px; max-width:640px; line-height:1.5; }
+  .sub a { color:#9f8fff; text-decoration:none; }
+  .sub a:hover { text-decoration:underline; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+           gap:14px; margin-top:28px; }
+  .card { display:block; background:#111111; border:1px solid #222222;
+           border-radius:12px; padding:18px; text-decoration:none; color:#f0ede8;
+           transition:border-color .15s, transform .15s; }
+  .card:hover { border-color:#333333; transform:translateY(-2px); }
+  .card-top { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .template { font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.06em;
+               text-transform:uppercase; color:#555555; }
+  .badge { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.04em;
+            padding:2px 8px; border-radius:99px; background:#1a1a1a;
+            color:#888888; border:1px solid #222222; }
+  .badge.accent { color:#9f8fff; border-color:#9f8fff44; }
+  .card h2 { font-size:17px; font-weight:600; margin-bottom:8px; }
+  .stats { font-family:"IBM Plex Mono",monospace; font-size:11px; color:#888888;
+            line-height:1.6; margin-bottom:14px; }
+  .strip { display:flex; gap:2px; height:6px; border-radius:3px; overflow:hidden;
+            margin-bottom:10px; }
+  .chips { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip { display:inline-flex; align-items:center; gap:5px;
+           font-family:"IBM Plex Mono",monospace; font-size:10px; color:#888888; }
+  .dot { width:8px; height:8px; border-radius:50%; }
+  footer { font-family:"IBM Plex Mono",monospace; font-size:11px; color:#555555;
+            margin-top:36px; }
+  footer a { color:#888888; }
+</style></head><body>
+<header>
+  <div class="eyebrow">curator · set gallery</div>
+  <h1>Long-form DJ sets from song feature analytics</h1>
+  <p class="sub">Each report is a sequenced multi-hour set: an energy arc followed
+    track-by-track, mixed in key on the Camelot wheel, with genre crossings routed
+    through bridge tracks. Built by <a href="https://github.com/ratulesrar3/curator">curator</a> — vibes in,
+    tracklists out. One set is planned by a web-searching Perplexity agent; one is
+    sequenced from a 15K-track Million Song Dataset supplement.</p>
+</header>
+<div class="grid">
+  <a class="card" href="dark_warehouse_peak_hour_techno.html">
+    <div class="card-top">
+      <span class="template">peak_time</span>
+    </div>
+    <h2>dark warehouse peak hour techno</h2>
+    <div class="stats">4:01:03 · 59 tracks ·
+      100.0% harmonic · 0 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:59;background:#16a4ba"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#16a4ba"></span>techno 59</span></div>
+  </a>
+  <a class="card" href="sunrise_rooftop_closing_set_in_lisbon.html">
+    <div class="card-top">
+      <span class="template">full_journey</span><span class="badge accent">agent · sonar-pro · 10 sources</span>
+    </div>
+    <h2>sunrise rooftop closing set in Lisbon</h2>
+    <div class="stats">2:03:42 · 31 tracks ·
+      100.0% harmonic · 0 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:31;background:#ad9002"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#ad9002"></span>house 31</span></div>
+  </a>
+  <a class="card" href="open_format_party.html">
+    <div class="card-top">
+      <span class="template">full_journey</span>
+    </div>
+    <h2>open format party</h2>
+    <div class="stats">4:03:02 · 71 tracks ·
+      100.0% harmonic · 22 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:19;background:#b04d01"></div><div style="flex:11;background:#ed499b"></div><div style="flex:25;background:#ad9002"></div><div style="flex:16;background:#16a4ba"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#b04d01"></span>hip hop 19</span><span class="chip"><span class="dot" style="background:#ed499b"></span>k-pop 11</span><span class="chip"><span class="dot" style="background:#ad9002"></span>house 25</span><span class="chip"><span class="dot" style="background:#16a4ba"></span>techno 16</span></div>
+  </a>
+  <a class="card" href="festival_rollercoaster.html">
+    <div class="card-top">
+      <span class="template">wave</span>
+    </div>
+    <h2>festival rollercoaster</h2>
+    <div class="stats">4:02:38 · 60 tracks ·
+      100.0% harmonic · 6 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:30;background:#ad9002"></div><div style="flex:22;background:#16a4ba"></div><div style="flex:8;background:#04934a"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#ad9002"></span>house 30</span><span class="chip"><span class="dot" style="background:#16a4ba"></span>techno 22</span><span class="chip"><span class="dot" style="background:#04934a"></span>drum-and-bass 8</span></div>
+  </a>
+  <a class="card" href="golden_hour_sunset_warmup.html">
+    <div class="card-top">
+      <span class="template">warmup</span>
+    </div>
+    <h2>golden hour sunset warmup</h2>
+    <div class="stats">2:05:20 · 29 tracks ·
+      100.0% harmonic · 0 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:29;background:#ad9002"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#ad9002"></span>house 29</span></div>
+  </a>
+  <a class="card" href="sunrise_melodic_closing.html">
+    <div class="card-top">
+      <span class="template">closing</span>
+    </div>
+    <h2>sunrise melodic closing</h2>
+    <div class="stats">2:05:31 · 31 tracks ·
+      100.0% harmonic · 0 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:31;background:#ad9002"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#ad9002"></span>house 31</span></div>
+  </a>
+  <a class="card" href="warehouse_techno_peak.html">
+    <div class="card-top">
+      <span class="template">peak_time</span><span class="badge">MSD library</span>
+    </div>
+    <h2>warehouse techno peak</h2>
+    <div class="stats">2:01:11 · 32 tracks ·
+      100.0% harmonic · 0 crossings ·
+      seed 42</div>
+    <div class="strip"><div style="flex:32;background:#16a4ba"></div></div><div class="chips"><span class="chip"><span class="dot" style="background:#16a4ba"></span>techno 32</span></div>
+  </a>
+</div>
+<footer>generated 2026-07-08 · <a href="https://github.com/ratulesrar3/curator">github.com/ratulesrar3/curator</a></footer>
+</body></html>
