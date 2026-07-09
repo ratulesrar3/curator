@@ -38,6 +38,10 @@ Each run writes to `output/`: a **self-contained HTML set report** (energy-arc c
 
 Chart colors are CVD-validated derivatives of the genre palette (all pairs distinguishable under protan/deutan/tritan simulation on the dark surface).
 
+## Site
+
+A gallery of generated sets is published at **[ratulesrar3.github.io/curator](https://ratulesrar3.github.io/curator/)**. A GitHub Actions workflow ([.github/workflows/pages.yml](.github/workflows/pages.yml)) rebuilds it on every push to `main`: run the tests, rebuild the library from the committed `data/spotify_raw.csv`, re-sequence the sets in [scripts/build_pages.py](scripts/build_pages.py), and deploy. The Lisbon set is re-planned live by the agent when a `PERPLEXITY_API_KEY` repository secret is present (keyword-parser fallback otherwise); the MSD-library set ships prebuilt from `site/prebuilt/` because its research-only source data stays out of the repo.
+
 ## Agent
 
 `--agent` hands planning to a Perplexity-backed agent (`src/agent.py`). The Perplexity API has no native tool calling — verified against its OpenAPI spec — so this is a staged loop built on `json_schema` structured outputs: **research** the vibe with live web search (venues, scenes, events get looked up, not guessed) → **plan** template + genre boosts → **build** deterministically → **critique** against the set metrics (≤ 2 revisions). Every LLM reply is schema-constrained and every lever is clamped to a whitelist before it touches the sequencer; the research citations land in the HTML/JSON/Markdown reports.
@@ -52,7 +56,7 @@ The key is read from `PERPLEXITY_API_KEY` or a gitignored `secrets.md` — never
 
 ```bash
 pip install -r requirements.txt
-python main.py --rebuild-library                      # once; needs data/spotify_raw.csv
+python main.py --rebuild-library                      # once; data/spotify_raw.csv ships with the repo
 python main.py --vibe "sunrise melodic closing" --hours 2
 python main.py --vibe "open format party" --hours 4 --template wave --seed 7
 python main.py --agent --vibe "closing set at a Lisbon rooftop"    # Perplexity agent

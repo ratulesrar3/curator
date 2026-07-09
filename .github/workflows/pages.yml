@@ -1,0 +1,50 @@
+# Rebuild the set gallery and publish it to GitHub Pages on every push to
+# main. Needs Pages source set to "GitHub Actions" (repo Settings -> Pages).
+#
+# Optional secret PERPLEXITY_API_KEY: with it, the Lisbon set is re-planned
+# live by the agent (fresh citations each deploy); without it the build still
+# succeeds via the deterministic keyword-parser fallback.
+
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  MPLBACKEND: Agg
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+      - run: python main.py --rebuild-library
+      - run: python scripts/build_pages.py --out _site
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v5

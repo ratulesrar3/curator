@@ -3,7 +3,7 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 output/
-data/spotify_raw.csv
+_site/
 data/library.csv
 secrets.md
 data/msd/
