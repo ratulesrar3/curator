@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Put the repo root on sys.path so `pytest` (bare console script, as CI and
+# the README invoke it) can import `src` and `main` — matching `python -m pytest`.
+pythonpath = ["."]
+testpaths = ["tests"]
