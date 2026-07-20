@@ -17,6 +17,17 @@ import pandas as pd
 from .explain import add_rationales, hms, set_report
 from .sequencer import SetResult
 
+# C0 control codepoints outside the XML 1.0 Char production (everything below
+# 0x20 except tab, newline, CR). Some source metadata — notably the Million
+# Song Dataset, where an apostrophe is stored as 0x19 — carries these bytes;
+# ElementTree serializes them but expat then refuses to re-parse, so strip them
+# before they reach the Rekordbox XML.
+_XML_ILLEGAL = {c: None for c in range(0x20) if c not in (0x09, 0x0A, 0x0D)}
+
+
+def _xml_safe(text) -> str:
+    return str(text).translate(_XML_ILLEGAL)
+
 
 def _slug(text: str) -> str:
     keep = "".join(c if c.isalnum() or c in " -_" else "" for c in text)
@@ -88,9 +99,9 @@ def export_rekordbox_xml(result: SetResult, df: pd.DataFrame, path: str) -> None
             collection,
             "TRACK",
             TrackID=str(r["position"]),
-            Name=str(r["track_name"]),
-            Artist=str(r["artists"]),
-            Genre=str(r["genre"]),
+            Name=_xml_safe(r["track_name"]),
+            Artist=_xml_safe(r["artists"]),
+            Genre=_xml_safe(r["genre"]),
             AverageBpm=f"{r['bpm']:.2f}",
             Tonality=str(r["camelot"]),
             TotalTime=str(int(round(r["playtime_s"]))),
@@ -101,7 +112,7 @@ def export_rekordbox_xml(result: SetResult, df: pd.DataFrame, path: str) -> None
     node = ET.SubElement(
         playlist_root,
         "NODE",
-        Name=result.vibe or result.template.name,
+        Name=_xml_safe(result.vibe or result.template.name),
         Type="1",
         KeyType="0",
         Entries=str(len(df)),
