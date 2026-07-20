@@ -171,6 +171,7 @@ def _assemble(
         row = {
             "position": pos + 1,
             "start_s": round(t, 1),
+            "track_id": track["track_id"],
             "track_name": track["track_name"],
             "artists": track["artists"],
             "genre": track["genre"],

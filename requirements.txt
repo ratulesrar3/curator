@@ -4,3 +4,4 @@ matplotlib
 pytest
 h5py
 requests
+spotipy

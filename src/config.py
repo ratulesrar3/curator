@@ -111,6 +111,17 @@ AGENT_BOOST_MAX = 2.0
 AGENT_MAX_TOKENS = 1024
 
 # ---------------------------------------------------------------
+# Spotify export (see src/spotify_export.py, docs/spotify_export.md)
+# ---------------------------------------------------------------
+# Auth is Authorization Code with PKCE (a public client - only a client ID,
+# no secret). Since the 2025 OAuth migration Spotify rejects `localhost`, so
+# the redirect must be a loopback IP literal.
+SPOTIFY_REDIRECT_URI = "http://127.0.0.1:8888/callback"
+SPOTIFY_SCOPE = "playlist-modify-private playlist-modify-public"
+SPOTIFY_ADD_CHUNK = 100       # Spotify caps playlist-add at 100 tracks/call
+SPOTIFY_SEARCH_LIMIT = 5      # candidates fetched per search (best hit wins)
+
+# ---------------------------------------------------------------
 # Palette
 # ---------------------------------------------------------------
 # Chart-safe variants of the crossbridge brand genre colors

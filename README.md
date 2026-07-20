@@ -34,7 +34,7 @@ Part of a three-project arc:
 
 ## Outputs
 
-Each run writes to `output/`: a **self-contained HTML set report** (energy-arc chart with hover, timestamped tracklist with per-transition scores), an energy-arc **PNG**, plus **CSV / JSON / Markdown / M3U8 / Rekordbox XML**. The Rekordbox export carries metadata only — point its `Location` fields at your local files.
+Each run writes to `output/`: a **self-contained HTML set report** (energy-arc chart with hover, timestamped tracklist with per-transition scores), an energy-arc **PNG**, plus **CSV / JSON / Markdown / M3U8 / Rekordbox XML**. The Rekordbox export carries metadata only — point its `Location` fields at your local files. Every export row carries the source `track_id`, so a set round-trips to Spotify losslessly (see [Spotify](#spotify)).
 
 Chart colors are CVD-validated derivatives of the genre palette (all pairs distinguishable under protan/deutan/tritan simulation on the dark surface).
 
@@ -52,6 +52,17 @@ python main.py --agent --vibe "sunrise rooftop closing set in Lisbon" --hours 2
 
 The key is read from `PERPLEXITY_API_KEY` or a gitignored `secrets.md` — never hardcode or commit it. Without a key (or on any API failure) the deterministic keyword parser takes over and the run still produces a set.
 
+## Spotify
+
+`scripts/spotify_playlist.py` turns a generated set into a Spotify playlist (`src/spotify_export.py`). Because the default library's `track_id` values *are* Spotify IDs, a set built on it maps **losslessly** — every track by exact ID, no search. MSD-library sets carry Million Song Dataset IDs and fall back to search-by-artist/title (best-effort; misses are reported). The playlist is the curator running order — Spotify can't beatmatch, so enable its client-side Crossfade for a blend.
+
+```bash
+python scripts/spotify_playlist.py output/sunrise_melodic_closing.json --dry-run   # resolve + report, no auth
+python scripts/spotify_playlist.py output/sunrise_melodic_closing.json --name "Sunrise"
+```
+
+Auth is Authorization Code with **PKCE** — a public client, so only a client ID is needed (no secret). Register `http://127.0.0.1:8888/callback` on your app and set `SPOTIFY_CLIENT_ID` (env or `secrets.md`); `--dry-run` needs neither. Full setup and fidelity notes: [docs/spotify_export.md](docs/spotify_export.md).
+
 ## Run it
 
 ```bash
@@ -62,7 +73,8 @@ python main.py --vibe "open format party" --hours 4 --template wave --seed 7
 python main.py --agent --vibe "closing set at a Lisbon rooftop"    # Perplexity agent
 python main.py --rebuild-msd-library                  # optional 15K-track MSD supplement
 python main.py --library data/library_msd.csv --vibe "warehouse techno" --hours 2
-pytest -q                                             # 48 tests
+python scripts/spotify_playlist.py output/sunrise_melodic_closing.json --dry-run
+pytest -q                                             # 64 tests
 ```
 
 Same seed → same set, reproducibly. A 4-hour set sequences in about a second.
@@ -71,6 +83,7 @@ Same seed → same set, reproducibly. A 4-hour set sequences in about a second.
 
 - [x] **LLM agent layer** — built on Perplexity `sonar-pro` (see [Agent](#agent)); the keyword parser stays as the no-credential fallback
 - [x] **Million Song Dataset supplement** — feasibility assessed ([docs/msd_feasibility.md](docs/msd_feasibility.md)) and adapter built: not viable as the base (all-zero energy, no genre labels, no k-pop), viable as a 15K-track supplement via Last.fm tags
+- [x] **Spotify playlist export** — [scripts/spotify_playlist.py](scripts/spotify_playlist.py) maps a set to a playlist (see [Spotify](#spotify)); lossless from the default library, search fallback for MSD
 - [ ] Score your actual crates: import a Rekordbox collection XML as the library
 - [ ] Audio-preview links in the HTML report
 

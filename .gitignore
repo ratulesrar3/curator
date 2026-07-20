@@ -6,5 +6,6 @@ output/
 _site/
 data/library.csv
 secrets.md
+.cache-spotify
 data/msd/
 data/library_msd.csv
